@@ -1,6 +1,8 @@
 
 const express = require('express')
+const cors = require('cors')
 const app = express()
+app.use(cors())
 const mongoose = require('mongoose')
 const Task = require('./models/toDoModel')
 const PORT = process.env.PORT || 3000
@@ -50,7 +52,19 @@ app.get('/show-tasks', (req,res) => {
     })
 })
 
-
+app.get('/show-tasks/:id',(req,res) => {
+    const id = req.params.id
+    Task.findById(id)
+    .then((response) => {
+        res.json(response)
+        console.log(response.id)
+        console.log(response.taskTitle)
+        console.log(response.taskBody)
+    })
+    .catch((err) => {
+        console.log(`ID error ${err}`)
+    })
+})
 
 
 
