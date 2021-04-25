@@ -12,20 +12,20 @@ app.set('view engine', 'ejs')
 
 // express to take in form data
 
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 
 const dbUri = 'mongodb+srv://mastercontrol:control1234@cluster0.td0sd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-mongoose.connect(dbUri,{useNewUrlParser: true, useUnifiedTopology:true})
-.then(() => {
-    console.log(`Connected to Database`)
-    app.listen(PORT,() => {console.log(`You are running on port ${PORT}`)})
-})
-.catch((err) => {
-    console.log(`Here is the error: ${err}`)
-})
+mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log(`Connected to Database`)
+        app.listen(PORT, () => { console.log(`You are running on port ${PORT}`) })
+    })
+    .catch((err) => {
+        console.log(`Here is the error: ${err}`)
+    })
 
-app.get('/',(req,res)=> {
+app.get('/', (req, res) => {
     Task.find()
         .then((response) => {
             res.render('index', { tasks: response })
@@ -35,18 +35,18 @@ app.get('/',(req,res)=> {
         })
 })
 
-app.post('/create-task',(req,res) => {
+app.post('/create-task', (req, res) => {
     console.log(req.body)
     //defining the "thing" that you want to pass into the database
     const newTask = new Task(req.body)
-// .save saves anything that is being passed to the database
+    // .save saves anything that is being passed to the database
     newTask.save()
-    .then(() => {
-        res.redirect('/')
-    })
-    .catch((err) => {
-        console.log(`Error being Thrown: ${err}`)
-    })
+        .then(() => {
+            res.redirect('/')
+        })
+        .catch((err) => {
+            console.log(`Error being Thrown: ${err}`)
+        })
 })
 
 
@@ -81,7 +81,7 @@ app.post('/create-task',(req,res) => {
 app.post()
 
 
-
+app.get()
 
 
 
